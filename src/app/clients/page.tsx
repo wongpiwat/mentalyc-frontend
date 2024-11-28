@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Client } from "@/types/client";
 
 import CreateClientModal from "@/components/modal/CreateClientModal";
@@ -10,6 +10,9 @@ import useFetchItems from "@/hooks/useFetchItems";
 import { createClient } from "@/services/client.services";
 import Dropdown, { FilterType } from "@/components/dropdown/Dropdown";
 import Divider from "@mui/material/Divider";
+import Button from "@/components/button/Button";
+import AddIcon from "@mui/icons-material/Add";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 const applyPagination = (
   rows: Client[],
@@ -28,16 +31,13 @@ export default function Page() {
   const [filterItems, setFilterItems] = useState<Client[]>([]);
 
   const [filterStatus, setFilterStatus] = useState(FilterType.None);
-  const [filterCategoryCode, setFilterCategoryCode] = useState(
-    FilterType.None,
-  );
+  const [filterCategoryCode, setFilterCategoryCode] = useState(FilterType.None);
 
   const { items, loading, refresh } = useFetchItems();
 
   const isEmpty = items.length === 0;
   const isFilteredStatus = filterStatus !== FilterType.None;
-  const isFilteredCategoryCode =
-    filterCategoryCode !== FilterType.None;
+  const isFilteredCategoryCode = filterCategoryCode !== FilterType.None;
 
   const itemsToDisplay =
     isFilteredStatus || isFilteredCategoryCode ? filterItems : items;
@@ -117,61 +117,72 @@ export default function Page() {
 
   return (
     <Stack>
-      <Stack direction="row" spacing={2}>
-        <Stack spacing={1} sx={{ flex: "1 1 auto" }}></Stack>
-        <Button variant="outlined" onClick={handleOpenCreateModal}>
-          Help
-        </Button>
-      </Stack>
-
-      <Stack direction="row" spacing={2}>
-        <Stack spacing={1} sx={{ flex: "1 1 auto" }}>
-          <Typography variant="h4">Clients</Typography>
-        </Stack>
-      </Stack>
-
-      <Stack sx={{ flexDirection: "row", display: "", gap: 2 }}>
-        <Stack flex={1} direction="row" gap={2}>
-          <Dropdown
-            label="Client name"
-            placeholder="Select client"
-            filterType={filterStatus}
-            onChangeFilter={(filterType: FilterType) =>
-              setFilterStatus(filterType)
-            }
-          />
-
-          <Dropdown
-            label="Clinician name"
-            placeholder="Select clinician"
-            filterType={filterCategoryCode}
-            onChangeFilter={(filterType: FilterType) =>
-              setFilterCategoryCode(filterType)
-            }
-          />
-        </Stack>
-
-        <Stack flex={1} direction="row" gap={2}>
-          <Divider />
-
+      <Stack>
+        <Stack direction="row" pt={2}>
+          <Stack spacing={1} sx={{ flex: "1 1 auto" }}></Stack>
           <Button
-            // startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />}
-            variant="outlined"
             onClick={handleOpenCreateModal}
+            startIcon={<HelpOutlineIcon />}
           >
-            Add new client
+            Help
           </Button>
         </Stack>
-      </Stack>
 
-      <ClientsTable
-        count={itemsToDisplay.length}
-        page={page}
-        rows={paginatedItems}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPageChange}
-      />
+        <Stack spacing={2} p={2}>
+          <Stack direction="row">
+            <Stack spacing={1} sx={{ flex: "1 1 auto" }}>
+              <Typography sx={{ fontSize: 20, fontWeight: 700 }}>
+                Clients
+              </Typography>
+            </Stack>
+          </Stack>
+
+          <Stack direction="row" spacing={2}>
+            <Stack flex={1} direction="row" spacing={2}>
+              <Dropdown
+                label="Client name"
+                placeholder="Select client"
+                filterType={filterStatus}
+                onChangeFilter={(filterType: FilterType) =>
+                  setFilterStatus(filterType)
+                }
+              />
+
+              <Dropdown
+                label="Clinician name"
+                placeholder="Select clinician"
+                filterType={filterCategoryCode}
+                onChangeFilter={(filterType: FilterType) =>
+                  setFilterCategoryCode(filterType)
+                }
+              />
+            </Stack>
+
+            <Stack flex={1} direction="row" alignItems="flex-end">
+              <Stack flex={1} direction="row" alignItems="center" spacing={2}>
+                <Divider sx={{ flex: 1 }} />
+
+                <Button
+                  variant="outlined"
+                  onClick={handleOpenCreateModal}
+                  startIcon={<AddIcon />}
+                >
+                  Add new client
+                </Button>
+              </Stack>
+            </Stack>
+          </Stack>
+
+          <ClientsTable
+            count={itemsToDisplay.length}
+            page={page}
+            rows={paginatedItems}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleRowsPerPageChange}
+          />
+        </Stack>
+      </Stack>
 
       <CreateClientModal
         open={openCreateModal}
