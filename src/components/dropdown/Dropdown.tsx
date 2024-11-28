@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Box, MenuItem, TextField, Typography } from "@mui/material";
-import Select from "@mui/material/Select";
+import { Box, MenuItem, Select, TextField, Typography } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export enum FilterType {
   None = -1,
@@ -31,7 +31,8 @@ const Dropdown = ({
         onChange={(e) => onChangeFilter(e.target.value as any)}
         defaultValue={FilterType.None}
         fullWidth
-        sx={{ background: "#FFF" }}
+        IconComponent={(props) => (<ExpandMoreIcon {...props}/>)}
+        sx={{ background: "#FFF", height: 40 }}
         renderValue={(selected) => {
           console.log("selected", selected);
           if (selected === -1) {
