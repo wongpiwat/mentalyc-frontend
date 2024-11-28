@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box, MenuItem, Select, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export enum FilterType {
@@ -24,7 +24,7 @@ const Dropdown = ({
 }: FiltersProps): React.JSX.Element => {
   return (
     <Box sx={{ flex: 1 }}>
-      {label && <Typography variant="body1">{label}</Typography>}
+      {label && <Typography>{label}</Typography>}
       <Select
         variant="outlined"
         value={filterType}

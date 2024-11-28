@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import "@/styles/global.css";
 
+import ThemeProvider from "@/components/theme/ThemeProvider";
+
 export const metadata: Metadata = {
   title: "Mentalyc",
   description: "Mentalyc - AI Psychotherapy Progress Notes",
@@ -14,7 +16,9 @@ export default function Layout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
