@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Stack, Typography } from "@mui/material";
+import { Button, Divider, Stack, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+
+import useFetchItems from "@/hooks/useFetchItems";
+import { createClient } from "@/services/client.services";
 import { Client } from "@/types/client";
 
 import CreateClientModal from "@/components/modal/CreateClientModal";
 import ClientsTable from "@/components/table/ClientsTable";
-import useFetchItems from "@/hooks/useFetchItems";
-import { createClient } from "@/services/client.services";
 import Dropdown, { FilterType } from "@/components/dropdown/Dropdown";
-import Divider from "@mui/material/Divider";
-import Button from "@/components/button/Button";
-import AddIcon from "@mui/icons-material/Add";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import Tabs from "@/components/tabs/Tabs";
 
 const applyPagination = (
   rows: Client[],
@@ -23,6 +23,15 @@ const applyPagination = (
 };
 
 export default function Page() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (
+    _event: any,
+    newValue: React.SetStateAction<number>,
+  ) => {
+    setValue(newValue);
+  };
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -135,6 +144,15 @@ export default function Page() {
                 Clients
               </Typography>
             </Stack>
+          </Stack>
+
+          <Stack direction="row">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="fullWidth"
+              sx={{ flex: 1 }}
+            />
           </Stack>
 
           <Stack direction="row" spacing={2}>
