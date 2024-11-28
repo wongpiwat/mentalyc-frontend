@@ -16,6 +16,19 @@ import { Client } from "@/types/client";
 import Chip from "@mui/material/Chip";
 import { CLIENT_TYPE } from "@/constants/client";
 import { formatDate } from "@/utils/format";
+import { styled, tableCellClasses } from "@mui/material";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    color: theme.palette.common.black,
+    fontWeight: "bold",
+    height: 38,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    color: theme.palette.common.black,
+    height: 28,
+  },
+}));
 
 interface ItemsTableProps {
   count?: number;
@@ -44,15 +57,15 @@ const ClientsTable = ({
   return (
     <Card>
       <Box sx={{ overflowX: "auto" }}>
-        <Table sx={{ minWidth: "800px" }}>
+        <Table sx={{ minWidth: "800px" }} size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Client Name</TableCell>
-              <TableCell>Clinician Name</TableCell>
-              <TableCell>Client Type</TableCell>
-              <TableCell>Treatment Plan</TableCell>
-              <TableCell>Last Session</TableCell>
-              <TableCell>Unsaved Notes</TableCell>
+              <StyledTableCell>Client Name</StyledTableCell>
+              <StyledTableCell>Clinician Name</StyledTableCell>
+              <StyledTableCell>Client Type</StyledTableCell>
+              <StyledTableCell>Treatment Plan</StyledTableCell>
+              <StyledTableCell>Last Session</StyledTableCell>
+              <StyledTableCell>Unsaved Notes</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -65,7 +78,7 @@ const ClientsTable = ({
 
               return (
                 <TableRow hover key={row.id}>
-                  <TableCell>
+                  <StyledTableCell>
                     <Stack
                       sx={{ alignItems: "center" }}
                       direction="row"
@@ -75,18 +88,20 @@ const ClientsTable = ({
                         {row.clientName}
                       </Typography>
                     </Stack>
-                  </TableCell>
-                  <TableCell>{row.clinicianName}</TableCell>
-                  <TableCell>
+                  </StyledTableCell>
+                  <StyledTableCell>{row.clinicianName}</StyledTableCell>
+                  <StyledTableCell>
                     <Chip
                       label={clientTypeLabel}
                       color={clientTypeColor as any}
                       size="small"
                     />
-                  </TableCell>
-                  <TableCell>{row.treatmentPlan}</TableCell>
-                  <TableCell>{formatDate(row.lastSession)}</TableCell>
-                  <TableCell>{row.unsavedNotes}</TableCell>
+                  </StyledTableCell>
+                  <StyledTableCell>{row.treatmentPlan}</StyledTableCell>
+                  <StyledTableCell>
+                    {formatDate(row.lastSession)}
+                  </StyledTableCell>
+                  <StyledTableCell>{row.unsavedNotes}</StyledTableCell>
                 </TableRow>
               );
             })}
