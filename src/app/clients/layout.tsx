@@ -20,7 +20,7 @@ export default function RootLayout({
       }}
     >
       <MainNavigation />
-      <Container>{children}</Container>
+      <Container maxWidth="lg">{children}</Container>
     </Box>
   );
 }

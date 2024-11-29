@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   AppBar,
   Box,
+  Chip,
   Toolbar,
   IconButton,
   Typography,
@@ -11,13 +12,16 @@ import {
   Button,
   Tooltip,
   MenuItem,
+  Stack,
 } from "@mui/material";
 
-import { Adb as AdbIcon, Menu as MenuIcon } from "@mui/icons-material";
 import Image from "next/image";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import NoteIcon from "@mui/icons-material/Note";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["New notes", "Clients", "Clinicians", "Templates"];
+const settings = ["Profile", "Settings", "Logout"];
 
 const MainNavigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,100 +44,60 @@ const MainNavigation = () => {
 
   return (
     <AppBar position="static" sx={{ background: "#FFF" }} elevation={0}>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Image alt="logo" width={42} height={24} src="Logo.svg" />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+          <Stack
+            flexDirection="row"
+            gap={10}
+            justifyContent="space-between"
+            sx={{ flexGrow: 1, display: "flex" }}
           >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Stack flexDirection="row" gap={2} alignItems="center">
+              <IconButton sx={{ p: 0 }}>
+                <Image alt="logo" width={42} height={24} src="Logo.svg" />
               </IconButton>
-            </Tooltip>
+              <Chip
+                label="PRO"
+                size="small"
+                sx={{ backgroundColor: "#F8CDD9", borderRadius: 2 }}
+              />
+            </Stack>
+
+            <Box sx={{ flexGrow: 1, display: "flex" }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, display: "block" }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+          </Stack>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Stack flexDirection="row" alignItems="center" gap={2}>
+              <Stack flexDirection="row" alignItems="center" gap={1}>
+                <NoteIcon color="primary" />
+                <Typography color="textSecondary">12 notes left </Typography>
+                <HelpOutlineIcon color="primary" />
+              </Stack>
+
+              <Button variant="outlined" color="primary">
+                Become SUPER
+              </Button>
+
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <ExpandMoreIcon
+                    color="primary"
+                    sx={{ transform: anchorElUser ? "rotate(180deg)" : 0 }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Stack>
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

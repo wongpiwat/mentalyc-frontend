@@ -129,12 +129,7 @@ export default function Page() {
       <Stack>
         <Stack direction="row" pt={2}>
           <Stack spacing={1} sx={{ flex: "1 1 auto" }}></Stack>
-          <Button
-            onClick={handleOpenCreateModal}
-            startIcon={<HelpOutlineIcon />}
-          >
-            Help
-          </Button>
+          <Button startIcon={<HelpOutlineIcon />}>Help</Button>
         </Stack>
 
         <Stack spacing={2} p={2}>
