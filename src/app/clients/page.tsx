@@ -174,14 +174,22 @@ export default function Page() {
             </Stack>
           </Stack>
 
-          <ClientsTable
-            count={itemsToDisplay.length}
-            page={page}
-            rows={paginatedItems}
-            rowsPerPage={rowsPerPage}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleRowsPerPageChange}
-          />
+          {itemsToDisplay.length > 0 ? (
+            <ClientsTable
+              count={itemsToDisplay.length}
+              page={page}
+              rows={paginatedItems}
+              rowsPerPage={rowsPerPage}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+            />
+          ) : (
+            <Stack sx={{ alignItems: "center", padding: 4 }}>
+              <Typography>
+                🙁 Oops! No matches found. Please double-check your input.
+              </Typography>
+            </Stack>
+          )}
         </Stack>
       </Stack>
 
