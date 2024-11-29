@@ -11,8 +11,8 @@ import { Client } from "@/types/client";
 
 import CreateClientModal from "@/components/modal/CreateClientModal";
 import ClientsTable from "@/components/table/ClientsTable";
-import Dropdown, { FilterType } from "@/components/dropdown/Dropdown";
 import Tabs from "@/components/tabs/Tabs";
+import TableFilter from "@/components/table/TableFilter";
 
 const applyPagination = (
   rows: Client[],
@@ -34,56 +34,44 @@ export default function Page() {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchClientName, setSearchClientName] = useState<string>("");
+  const [searchClinicianName, setSearchClinicianName] = useState<string>("");
 
   const [openCreateModal, setOpenCreateModal] = useState(false);
 
   const [filterItems, setFilterItems] = useState<Client[]>([]);
 
-  const [filterStatus, setFilterStatus] = useState(FilterType.None);
-  const [filterCategoryCode, setFilterCategoryCode] = useState(FilterType.None);
-
   const { items, loading, refresh } = useFetchItems();
 
-  const isEmpty = items.length === 0;
-  const isFilteredStatus = filterStatus !== FilterType.None;
-  const isFilteredCategoryCode = filterCategoryCode !== FilterType.None;
+  const isSearchActive = searchClientName || searchClinicianName;
+  const itemsToDisplay = isSearchActive ? filterItems : items;
 
-  const itemsToDisplay =
-    isFilteredStatus || isFilteredCategoryCode ? filterItems : items;
   const paginatedItems = applyPagination(itemsToDisplay, page, rowsPerPage);
 
-  // Filter items based on search text or status or category code
   useEffect(() => {
-    if (
-      filterStatus === FilterType.None &&
-      filterCategoryCode === FilterType.None
-    ) {
-      return;
-    }
+    // Filter items by client name and clinician name
+    const filteredItems = items.filter((item) => {
+      const clientName = item.clientName.toLowerCase();
+      const clinicianName = item.clinicianName.toLowerCase();
+      const searchClientNameLower = searchClientName.toLowerCase();
+      const searchClinicianNameLower = searchClinicianName.toLowerCase();
 
-    const filteredRows = items.filter((row) => {
-      const results = [];
-
-      // status filter
-      if (filterStatus !== FilterType.None) {
-        const _row = row.clientName === filterStatus;
-        results.push(_row);
-      }
-
-      // category code filter
-      if (filterCategoryCode !== FilterType.None) {
-        const _row = row.clinicianName === filterCategoryCode;
-        results.push(_row);
-      }
-
-      return results.every((result) => result);
+      return (
+        clientName.includes(searchClientNameLower) &&
+        clinicianName.includes(searchClinicianNameLower)
+      );
     });
 
-    // console.log("Filtered Rows Filter: ", filteredRows);
+    setFilterItems(filteredItems);
+  }, [items, searchClientName, searchClinicianName]);
 
-    setFilterItems(filteredRows);
-    setPage(0);
-  }, [items, filterStatus, filterCategoryCode]);
+  const cancelClientNameSearch = () => {
+    setSearchClientName("");
+  };
+
+  const cancelClinicianNameSearch = () => {
+    setSearchClinicianName("");
+  };
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -120,7 +108,7 @@ export default function Page() {
     }
   };
 
-  if (loading && isEmpty) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
@@ -152,22 +140,22 @@ export default function Page() {
 
           <Stack direction="row" spacing={2}>
             <Stack flex={1} direction="row" spacing={2}>
-              <Dropdown
+              <TableFilter
                 label="Client name"
-                placeholder="Select client"
-                filterType={filterStatus}
-                onChangeFilter={(filterType: FilterType) =>
-                  setFilterStatus(filterType)
-                }
+                placeholder="Search client"
+                value={searchClientName}
+                onChange={(searchVal) => setSearchClientName(searchVal)}
+                onCancelSearch={() => cancelClientNameSearch()}
+                fullWidth
               />
 
-              <Dropdown
+              <TableFilter
                 label="Clinician name"
-                placeholder="Select clinician"
-                filterType={filterCategoryCode}
-                onChangeFilter={(filterType: FilterType) =>
-                  setFilterCategoryCode(filterType)
-                }
+                placeholder="Search clinician"
+                value={searchClinicianName}
+                onChange={(searchVal) => setSearchClinicianName(searchVal)}
+                onCancelSearch={() => cancelClinicianNameSearch()}
+                fullWidth
               />
             </Stack>
 
