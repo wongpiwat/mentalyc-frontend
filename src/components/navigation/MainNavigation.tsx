@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Box,
@@ -13,29 +13,47 @@ import {
   Tooltip,
   MenuItem,
   Stack,
+  styled,
+  Theme,
 } from "@mui/material";
 
 import Image from "next/image";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import NoteIcon from "@mui/icons-material/Note";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const pages = ["New notes", "Clients", "Clinicians", "Templates"];
 const settings = ["Profile", "Settings", "Logout"];
 
-const MainNavigation = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+const TabContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: theme.spacing(1),
+}));
 
-  const handleOpenNavMenu = (event: any) => {
-    setAnchorElNav(event.currentTarget);
-  };
+const TabItem = styled(Button)<{ selected?: boolean }>(
+  ({ theme, selected }) => ({
+    textTransform: "none",
+    height: 64,
+    cursor: "pointer",
+    fontSize: 16,
+    fontWeight: selected ? "bold" : "normal",
+    color: selected ? theme.palette.primary.main : theme.palette.text.secondary,
+    borderBottom: selected ? `3px solid ${theme.palette.primary.main}` : "none",
+    borderRadius: 0,
+    "&:hover": {
+      color: theme.palette.primary.main,
+    },
+  }),
+);
+
+const MainNavigation = () => {
+  const [selectedTab, setSelectedTab] = useState(1);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
   const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -64,15 +82,22 @@ const MainNavigation = () => {
             </Stack>
 
             <Box sx={{ flexGrow: 1, display: "flex" }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, display: "block" }}
-                >
-                  {page}
-                </Button>
-              ))}
+              <TabContainer>
+                {pages.map((tab, index) => (
+                  <TabItem
+                    key={index}
+                    selected={selectedTab === index}
+                    onClick={() => setSelectedTab(index)}
+                  >
+                    {tab}
+                  </TabItem>
+                ))}
+                <Stack justifyContent="center">
+                  <Typography color="primary" sx={{ px: 2 }}>
+                    Earn $80
+                  </Typography>
+                </Stack>
+              </TabContainer>
             </Box>
           </Stack>
 
