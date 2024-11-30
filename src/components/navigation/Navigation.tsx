@@ -64,12 +64,7 @@ const Navigation = () => {
     <AppBar position="static" sx={{ background: "#FFF" }} elevation={0}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <Stack
-            flexDirection="row"
-            gap={10}
-            justifyContent="space-between"
-            sx={{ flexGrow: 1, display: "flex" }}
-          >
+          <Stack flexDirection="row" flexGrow={0}>
             <Stack flexDirection="row" gap={2} alignItems="center">
               <IconButton sx={{ p: 0 }}>
                 <Image alt="logo" width={42} height={24} src="Logo.svg" />
@@ -78,31 +73,30 @@ const Navigation = () => {
                 label="PRO"
                 size="small"
                 className="bg-chip-primary rounded-md"
-                // sx={{ borderRadius: 2, backgroundColor: "bg-amber-100" }}
               />
             </Stack>
-
-            <Box sx={{ flexGrow: 1, display: "flex" }}>
-              <TabContainer>
-                {pages.map((tab, index) => (
-                  <TabItem
-                    key={index}
-                    selected={selectedTab === index}
-                    onClick={() => setSelectedTab(index)}
-                  >
-                    {tab}
-                  </TabItem>
-                ))}
-                <Stack justifyContent="center">
-                  <Typography color="primary" sx={{ px: 2 }}>
-                    Earn $80
-                  </Typography>
-                </Stack>
-              </TabContainer>
-            </Box>
           </Stack>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Stack flexDirection="row" justifyContent="center" flexGrow={1}>
+            <TabContainer>
+              {pages.map((tab, index) => (
+                <TabItem
+                  key={index}
+                  selected={selectedTab === index}
+                  onClick={() => setSelectedTab(index)}
+                >
+                  {tab}
+                </TabItem>
+              ))}
+              <Stack justifyContent="center">
+                <Typography color="primary" sx={{ px: 2 }}>
+                  Earn $80
+                </Typography>
+              </Stack>
+            </TabContainer>
+          </Stack>
+
+          <Box flexGrow={0}>
             <Stack flexDirection="row" alignItems="center" gap={2}>
               <Stack flexDirection="row" alignItems="center" gap={1}>
                 <NoteIcon color="primary" />
