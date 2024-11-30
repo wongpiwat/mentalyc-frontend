@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Container } from "@mui/material";
-import MainNavigation from "@/components/navigation/MainNavigation";
+import Navigation from "@/components/navigation/Navigation";
 
 export default function RootLayout({
   children,
@@ -19,7 +19,7 @@ export default function RootLayout({
         minHeight: "100%",
       }}
     >
-      <MainNavigation />
+      <Navigation />
       <Container maxWidth="lg">{children}</Container>
     </Box>
   );

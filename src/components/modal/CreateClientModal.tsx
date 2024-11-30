@@ -15,11 +15,7 @@ import Stack from "@mui/material/Stack";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-import {
-  clientSchema,
-  defaultValues,
-  Values,
-} from "@/schemas/client.schema";
+import { clientSchema, defaultValues, Values } from "@/schemas/client.schema";
 
 type CreateItemModalProps = {
   open: boolean;
@@ -54,7 +50,7 @@ export default function CreateClientModal({
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
-      <DialogTitle>Create a new item</DialogTitle>
+      <DialogTitle>Add new client</DialogTitle>
       <form onSubmit={handleSubmit(handleCreateItem)}>
         <DialogContent>
           <Stack spacing={2}>
@@ -98,15 +94,9 @@ export default function CreateClientModal({
               render={({ field }) => (
                 <FormControl error={Boolean(errors.clientName)}>
                   <InputLabel>Client Name</InputLabel>
-                  <OutlinedInput
-                    {...field}
-                    label="clientName"
-                    type="number"
-                  />
+                  <OutlinedInput {...field} label="clientName" type="number" />
                   {errors.clientName ? (
-                    <FormHelperText>
-                      {errors.clientName.message}
-                    </FormHelperText>
+                    <FormHelperText>{errors.clientName.message}</FormHelperText>
                   ) : null}
                 </FormControl>
               )}
@@ -140,9 +130,7 @@ export default function CreateClientModal({
                     <MenuItem value="CD">CD</MenuItem>
                   </Select>
                   {errors.clientType ? (
-                    <FormHelperText>
-                      {errors.clientType.message}
-                    </FormHelperText>
+                    <FormHelperText>{errors.clientType.message}</FormHelperText>
                   ) : null}
                 </FormControl>
               )}

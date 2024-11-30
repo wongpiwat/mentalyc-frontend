@@ -48,7 +48,7 @@ const TabItem = styled(Button)<{ selected?: boolean }>(
   }),
 );
 
-const MainNavigation = () => {
+const Navigation = () => {
   const [selectedTab, setSelectedTab] = useState(1);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -77,7 +77,8 @@ const MainNavigation = () => {
               <Chip
                 label="PRO"
                 size="small"
-                sx={{ backgroundColor: "#F8CDD9", borderRadius: 2 }}
+                className="bg-chip-primary rounded-md"
+                // sx={{ borderRadius: 2, backgroundColor: "bg-amber-100" }}
               />
             </Stack>
 
@@ -153,4 +154,4 @@ const MainNavigation = () => {
     </AppBar>
   );
 };
-export default MainNavigation;
+export default Navigation;

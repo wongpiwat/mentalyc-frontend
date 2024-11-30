@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "@/styles/global.css";
 
 import ThemeProvider from "@/components/theme/ThemeProvider";
+import GlobalCssPriority from "@/components/theme/GlobalCssPriority";
 
 export const metadata: Metadata = {
   title: "Mentalyc",
@@ -17,7 +18,9 @@ export default function Layout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <GlobalCssPriority>
+          <ThemeProvider>{children}</ThemeProvider>
+        </GlobalCssPriority>
       </body>
     </html>
   );
