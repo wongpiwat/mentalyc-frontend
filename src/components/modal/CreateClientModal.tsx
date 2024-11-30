@@ -45,6 +45,11 @@ export default function CreateClientModal({
     { label: "Disorder", tag: "F21.276", value: 3 },
   ];
 
+  const clientTypeOptions = [
+    { label: "Individual", value: "INDIVIDUAL" },
+    { label: "Couple", value: "COUPLE" },
+  ];
+
   const handleCreateItem = (values: Values) => {
     console.log("Create item", values);
     onSubmit(values);
@@ -74,7 +79,12 @@ export default function CreateClientModal({
               name="clientType"
               render={({ field }) => (
                 <FormControl error={Boolean(errors.clientType)}>
-                  <Radio {...field} label="Client type" row />
+                  <Radio
+                    {...field}
+                    label="Client type"
+                    row
+                    options={clientTypeOptions}
+                  />
                   {errors.clientType ? (
                     <FormHelperText>{errors.clientType.message}</FormHelperText>
                   ) : null}

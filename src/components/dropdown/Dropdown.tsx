@@ -13,8 +13,8 @@ type DropdownProps = FiltersProps & React.ComponentProps<typeof Select>;
 const Dropdown = ({
   label,
   value,
+  options = [],
   onChange,
-  options,
   fullWidth,
   ...props
 }: DropdownProps): React.JSX.Element => {
@@ -30,21 +30,16 @@ const Dropdown = ({
         sx={{ background: "#FFF", height: 40 }}
         {...props}
       >
-        {options &&
-          options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              <Stack flexDirection="row" gap={1}>
-                {option.tag && (
-                  <Chip
-                    label={option.tag}
-                    size="small"
-                    className="rounded-md"
-                  />
-                )}
-                {option.label && option.label}
-              </Stack>
-            </MenuItem>
-          ))}
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            <Stack flexDirection="row" gap={1}>
+              {option.tag && (
+                <Chip label={option.tag} size="small" className="rounded-md" />
+              )}
+              {option.label && option.label}
+            </Stack>
+          </MenuItem>
+        ))}
       </Select>
     </Stack>
   );

@@ -10,23 +10,25 @@ import {
 interface RadioProps {
   label: string;
   row?: boolean;
+  options?: { label: string; value: string }[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 }
 
 type RadioType = RadioProps & React.ComponentProps<typeof MUIRadio>;
 
-const Radio = ({ label, name, value, onChange, row, ...rest }: RadioType) => {
+const Radio = ({ label, value, onChange, options = [], row }: RadioType) => {
   return (
     <Stack sx={{ gap: 1 }}>
       {label && <Typography>{label}</Typography>}
       <RadioGroup row={row} value={value} onChange={onChange}>
-        <FormControlLabel
-          value="female"
-          control={<MUIRadio />}
-          label="Female"
-        />
-        <FormControlLabel value="male" control={<MUIRadio />} label="Male" />
-        <FormControlLabel value="other" control={<MUIRadio />} label="Other" />
+        {options.map((option) => (
+          <FormControlLabel
+            key={option.value}
+            value={option.value}
+            control={<MUIRadio />}
+            label={option.label}
+          />
+        ))}
       </RadioGroup>
     </Stack>
   );
