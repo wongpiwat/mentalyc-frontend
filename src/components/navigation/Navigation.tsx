@@ -34,7 +34,6 @@ const TabContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
 
 const TabItem = styled(Button)<{ selected?: boolean }>(
   ({ theme, selected }) => ({
-    textTransform: "none",
     height: 64,
     cursor: "pointer",
     fontSize: 16,

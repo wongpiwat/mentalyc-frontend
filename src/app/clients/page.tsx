@@ -95,16 +95,11 @@ export default function Page() {
     setOpenCreateModal(false);
   };
 
-  const handleCreateItem = async (client: Client) => {
-    console.log("Create client", client);
+  const handleCreateItem = async () => {
     try {
-      const response = await createClient(client);
-      console.log("Client created", response);
-      refresh();
-      // toast("Item created");
+      console.log("Create client");
     } catch (error) {
       console.error("Error creating new client", error);
-      // if (error) toast(error.toString());
     }
   };
 
