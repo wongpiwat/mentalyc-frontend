@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Chip, MenuItem, Select, Stack, Typography } from "@mui/material";
+import { Chip, MenuItem, Select, Stack, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface FiltersProps {
@@ -15,16 +15,17 @@ const Dropdown = ({
   value,
   onChange,
   options,
+  fullWidth,
   ...props
 }: DropdownProps): React.JSX.Element => {
   return (
-    <Box sx={{ flex: 1 }}>
+    <Stack sx={{ flex: fullWidth ? 1 : "none", gap: 1 }}>
       {label && <Typography>{label}</Typography>}
       <Select
         variant="outlined"
         value={value}
         onChange={onChange}
-        fullWidth
+        fullWidth={fullWidth}
         IconComponent={(props) => <ExpandMoreIcon {...props} />}
         sx={{ background: "#FFF", height: 40 }}
         {...props}
@@ -45,7 +46,7 @@ const Dropdown = ({
             </MenuItem>
           ))}
       </Select>
-    </Box>
+    </Stack>
   );
 };
 

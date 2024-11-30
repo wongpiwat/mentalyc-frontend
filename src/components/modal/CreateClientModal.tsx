@@ -14,6 +14,8 @@ import { clientSchema, defaultValues, Values } from "@/schemas/client.schema";
 import { Typography } from "@mui/material";
 import TextField from "@/components/text-field/TextField";
 import Dropdown from "@/components/dropdown/Dropdown";
+import Radio from "@/components/radio/Radio";
+import Switch from "@/components/switch/Switch";
 
 type CreateItemModalProps = {
   open: boolean;
@@ -27,11 +29,15 @@ export default function CreateClientModal({
   onSubmit,
 }: CreateItemModalProps) {
   const {
+    watch,
     control,
     handleSubmit,
     setError,
     formState: { errors },
   } = useForm<Values>({ defaultValues, resolver: zodResolver(clientSchema) });
+
+  const watchAllFields = watch();
+  console.log("watch", watchAllFields);
 
   const diagnosisOptions = [
     { label: "Adjustment disorder with anxiety", tag: "F43.22", value: 1 },
@@ -62,6 +68,20 @@ export default function CreateClientModal({
               This client information is essential for generating detailed
               clients documents
             </Typography>
+
+            <Controller
+              control={control}
+              name="clientType"
+              render={({ field }) => (
+                <FormControl error={Boolean(errors.clientType)}>
+                  <Radio {...field} label="Client type" row />
+                  {errors.clientType ? (
+                    <FormHelperText>{errors.clientType.message}</FormHelperText>
+                  ) : null}
+                </FormControl>
+              )}
+            />
+
             <Controller
               control={control}
               name="clientName"
@@ -112,6 +132,24 @@ export default function CreateClientModal({
                   {errors.diagnosis ? (
                     <FormHelperText>{errors.diagnosis.message}</FormHelperText>
                   ) : null}
+                </FormControl>
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="highRiskClient"
+              render={({ field }) => (
+                <FormControl error={Boolean(errors.highRiskClient)}>
+                  <Stack flexDirection="row" justifyContent="space-between">
+                    <Typography>High risk client</Typography>
+                    <Switch {...field} />
+                    {errors.highRiskClient ? (
+                      <FormHelperText>
+                        {errors.highRiskClient.message}
+                      </FormHelperText>
+                    ) : null}
+                  </Stack>
                 </FormControl>
               )}
             />
