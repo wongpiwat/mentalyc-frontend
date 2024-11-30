@@ -1,13 +1,9 @@
 import React from "react";
 
-import {
-  InputAdornment,
-  OutlinedInput,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { InputAdornment, Stack, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
+import TextField from "@/components/text-field/TextField";
 
 type TableFilterProps = {
   label: string;
@@ -28,18 +24,12 @@ const TableFilter = ({
 }: TableFilterProps) => {
   return (
     <Stack sx={{ flex: fullWidth ? 1 : "none", gap: 1 }}>
-      {label && <Typography>{label}</Typography>}
-      <OutlinedInput
+      <TextField
+        label={label}
         value={value}
         fullWidth={fullWidth}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        sx={{
-          maxWidth: "500px",
-          background: "#FFF",
-          borderRadius: 2,
-          height: 40,
-        }}
         startAdornment={
           <InputAdornment position="start">
             <SearchIcon />
