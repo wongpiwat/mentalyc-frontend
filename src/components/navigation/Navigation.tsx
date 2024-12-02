@@ -9,43 +9,21 @@ import {
   Menu,
   Container,
   Avatar,
-  Button,
   Tooltip,
   MenuItem,
   Stack,
-  styled,
-  Theme,
 } from "@mui/material";
 
 import Image from "next/image";
 import NoteIcon from "@mui/icons-material/Note";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import GradientButton from "@/components/button/GradientButton";
+import TextGradientButton from "@/components/button/TextGradientButton";
+import { NavContainer, NavItem } from "@/components/navigation/NavMenu";
 
 const pages = ["New notes", "Clients", "Clinicians", "Templates"];
 const settings = ["Profile", "Settings", "Logout"];
-
-const TabContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: theme.spacing(1),
-}));
-
-const TabItem = styled(Button)<{ selected?: boolean }>(
-  ({ theme, selected }) => ({
-    height: 64,
-    cursor: "pointer",
-    fontSize: 16,
-    fontWeight: selected ? "bold" : "normal",
-    color: selected ? theme.palette.primary.main : theme.palette.text.secondary,
-    borderBottom: selected ? `3px solid ${theme.palette.primary.main}` : "none",
-    borderRadius: 0,
-    "&:hover": {
-      color: theme.palette.primary.main,
-    },
-  }),
-);
 
 const Navigation = () => {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -77,22 +55,20 @@ const Navigation = () => {
           </Stack>
 
           <Stack flexDirection="row" justifyContent="center" flexGrow={1}>
-            <TabContainer>
+            <NavContainer>
               {pages.map((tab, index) => (
-                <TabItem
+                <NavItem
                   key={index}
                   selected={selectedTab === index}
                   onClick={() => setSelectedTab(index)}
                 >
                   {tab}
-                </TabItem>
+                </NavItem>
               ))}
               <Stack justifyContent="center">
-                <Typography color="primary" sx={{ px: 2 }}>
-                  Earn $80
-                </Typography>
+                <TextGradientButton>Earn $80</TextGradientButton>
               </Stack>
-            </TabContainer>
+            </NavContainer>
           </Stack>
 
           <Box flexGrow={0}>
@@ -103,9 +79,7 @@ const Navigation = () => {
                 <HelpOutlineIcon color="primary" />
               </Stack>
 
-              <Button variant="outlined" color="primary">
-                Become SUPER
-              </Button>
+              <GradientButton>Become SUPER</GradientButton>
 
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
