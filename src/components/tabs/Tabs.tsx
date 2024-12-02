@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs as MUITabs, Tab, styled, Theme } from "@mui/material";
+import { Tabs as MUITabs, Tab as MUITab, styled, Theme } from "@mui/material";
 
 interface TabsProps {
   value: number;
@@ -11,7 +11,7 @@ interface TabsProps {
 
 type TabProps = TabsProps & React.ComponentProps<typeof MUITabs>;
 
-const CustomTabs = styled(MUITabs)(
+const TabsStyled = styled(MUITabs)(
   ({ theme, selected }: { theme: Theme; selected?: boolean }) => ({
     backgroundColor: theme.palette.background.default,
     border: `1px solid ${theme.palette.divider}`,
@@ -24,14 +24,17 @@ const CustomTabs = styled(MUITabs)(
   }),
 );
 
-const CustomTab = styled(Tab)(
+const TabStyled = styled(MUITab)(
   ({ theme, selected }: { theme: Theme; selected?: boolean }) => ({
+    fontSize: 14,
     textTransform: "none",
     minHeight: 32,
     padding: "0 20px",
     borderRadius: 20,
     border: selected ? `1px solid ${theme.palette.divider}` : "none",
-    color: selected ? theme.palette.text.primary : theme.palette.text.disabled,
+    "&.Mui-selected": {
+      color: theme.palette.common.black,
+    },
     backgroundColor: selected
       ? theme.palette.background.default
       : theme.palette.background.default,
@@ -45,10 +48,10 @@ const CustomTab = styled(Tab)(
 
 const Tabs = ({ value, onChange, ...rest }: TabProps) => {
   return (
-    <CustomTabs value={value} onChange={onChange} {...rest}>
-      <CustomTab id="treatment" label="In treatment" />
-      <CustomTab id="deactivated" label="Deactivated" />
-    </CustomTabs>
+    <TabsStyled value={value} onChange={onChange} {...rest}>
+      <TabStyled id="treatment" label="In treatment" />
+      <TabStyled id="deactivated" label="Deactivated" />
+    </TabsStyled>
   );
 };
 

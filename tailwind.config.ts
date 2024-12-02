@@ -34,6 +34,9 @@ export default {
           warning: "#FDF4C8",
           gray: "#EBEBEB",
         },
+        gradient: {
+          primary: "linear-gradient(296deg, #DE0D6F 16.23%, #731054 83.77%)",
+        },
       },
     },
   },
