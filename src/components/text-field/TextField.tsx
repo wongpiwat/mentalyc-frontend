@@ -11,7 +11,7 @@ type TextFieldType = TextFieldProps &
 const TextField = ({ label, fullWidth, ...props }: TextFieldType) => {
   return (
     <Stack sx={{ flex: fullWidth ? 1 : "none", gap: 1 }}>
-      {label && <Typography>{label}</Typography>}
+      {label && <Typography variant="small">{label}</Typography>}
       <OutlinedInput
         sx={{
           background: "#FFF",

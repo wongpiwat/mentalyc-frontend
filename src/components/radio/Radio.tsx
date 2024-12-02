@@ -19,7 +19,7 @@ type RadioType = RadioProps & React.ComponentProps<typeof MUIRadio>;
 const Radio = ({ label, value, onChange, options = [], row }: RadioType) => {
   return (
     <Stack sx={{ gap: 1 }}>
-      {label && <Typography>{label}</Typography>}
+      {label && <Typography variant="small">{label}</Typography>}
       <RadioGroup row={row} value={value} onChange={onChange}>
         {options.map((option) => (
           <FormControlLabel

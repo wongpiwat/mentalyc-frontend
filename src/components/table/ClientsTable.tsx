@@ -84,12 +84,12 @@ const ClientsTable = ({
                       direction="row"
                       spacing={2}
                     >
-                      <Typography variant="subtitle2">
-                        {row.clientName}
-                      </Typography>
+                      <Typography variant="label">{row.clientName}</Typography>
                     </Stack>
                   </StyledTableCell>
-                  <StyledTableCell>{row.clinicianName}</StyledTableCell>
+                  <StyledTableCell>
+                    <Typography variant="label">{row.clinicianName}</Typography>
+                  </StyledTableCell>
                   <StyledTableCell>
                     <Chip
                       label={clientTypeLabel}
@@ -97,11 +97,17 @@ const ClientsTable = ({
                       size="small"
                     />
                   </StyledTableCell>
-                  <StyledTableCell>{row.treatmentPlan}</StyledTableCell>
                   <StyledTableCell>
-                    {formatDate(row.lastSession)}
+                    <Typography variant="label">{row.treatmentPlan}</Typography>
                   </StyledTableCell>
-                  <StyledTableCell>{row.unsavedNotes}</StyledTableCell>
+                  <StyledTableCell>
+                    <Typography variant="label">
+                      {formatDate(row.lastSession)}
+                    </Typography>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <Typography variant="label">{row.unsavedNotes}</Typography>
+                  </StyledTableCell>
                 </TableRow>
               );
             })}

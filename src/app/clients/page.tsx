@@ -118,9 +118,7 @@ export default function Page() {
         <Stack spacing={2} p={2}>
           <Stack direction="row">
             <Stack spacing={1} sx={{ flex: "1 1 auto" }}>
-              <Typography sx={{ fontSize: 20, fontWeight: 700 }}>
-                Clients
-              </Typography>
+              <Typography variant="h4">Clients</Typography>
             </Stack>
           </Stack>
 
@@ -162,6 +160,7 @@ export default function Page() {
                   variant="outlined"
                   onClick={handleOpenCreateModal}
                   startIcon={<AddIcon />}
+                  sx={{ fontSize: 16 }}
                 >
                   Add new client
                 </Button>
@@ -180,7 +179,7 @@ export default function Page() {
             />
           ) : (
             <Stack sx={{ alignItems: "center", padding: 4 }}>
-              <Typography>
+              <Typography variant="label">
                 🙁 Oops! No matches found. Please double-check your input.
               </Typography>
             </Stack>
