@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Divider, Stack, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 import useFetchItems from "@/hooks/useFetchItems";
-import { createClient } from "@/services/client.services";
 import { Client } from "@/types/client";
 
 import CreateClientModal from "@/components/modal/CreateClientModal";
-import ClientsTable from "@/components/table/ClientsTable";
+import InTreatmentTable from "@/components/table/InTreatmentTable";
 import Tabs from "@/components/tabs/Tabs";
 import TableFilter from "@/components/table/TableFilter";
+import DeactivatedTable from "@/components/table/DeactivatedTable";
 
 const applyPagination = (
   rows: Client[],
@@ -23,14 +23,7 @@ const applyPagination = (
 };
 
 export default function Page() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (
-    _event: any,
-    newValue: React.SetStateAction<number>,
-  ) => {
-    setValue(newValue);
-  };
+  const [tab, setTab] = useState(0);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -43,14 +36,38 @@ export default function Page() {
 
   const { items, loading, refresh } = useFetchItems();
 
-  const isSearchActive = searchClientName || searchClinicianName;
-  const itemsToDisplay = isSearchActive ? filterItems : items;
+  // Split items into active and deactivated clients
+  const [activeClient, deactivatedClient] = useMemo(() => {
+    return items.reduce(
+      (acc, item) => {
+        if (item.status) {
+          acc[0].push(item);
+        } else {
+          acc[1].push(item);
+        }
+        return acc;
+      },
+      [[], []] as [Client[], Client[]],
+    );
+  }, [items]);
 
+  const showActiveClients = tab === 0;
+  const clients = showActiveClients ? activeClient : deactivatedClient;
+  const isSearchActive = searchClientName || searchClinicianName;
+  const itemsToDisplay = isSearchActive ? filterItems : clients;
   const paginatedItems = applyPagination(itemsToDisplay, page, rowsPerPage);
 
+  console.log("clients", clients);
+
+  // Filter items by client name and clinician name
   useEffect(() => {
-    // Filter items by client name and clinician name
-    const filteredItems = items.filter((item) => {
+    console.log("searchClientName", searchClientName);
+    console.log("searchClinicianName", searchClinicianName);
+    if (!searchClientName && !searchClinicianName) {
+      return;
+    }
+
+    const filteredItems = clients.filter((item) => {
       const clientName = item.clientName.toLowerCase();
       const clinicianName = item.clinicianName.toLowerCase();
       const searchClientNameLower = searchClientName.toLowerCase();
@@ -62,8 +79,18 @@ export default function Page() {
       );
     });
 
+    console.log("filteredItems", filteredItems);
+
     setFilterItems(filteredItems);
-  }, [items, searchClientName, searchClinicianName]);
+  }, [clients, searchClientName, searchClinicianName]);
+
+  const handleChangeTab = (
+    _event: any,
+    newValue: React.SetStateAction<number>,
+  ) => {
+    setTab(newValue);
+    setPage(0);
+  };
 
   const cancelClientNameSearch = () => {
     setSearchClientName("");
@@ -124,8 +151,12 @@ export default function Page() {
 
           <Stack direction="row">
             <Tabs
-              value={value}
-              onChange={handleChange}
+              value={tab}
+              items={[
+                { label: "In treatment", size: activeClient.length },
+                { label: "Deactivated", size: deactivatedClient.length },
+              ]}
+              onChange={handleChangeTab}
               variant="fullWidth"
               sx={{ flex: 1 }}
             />
@@ -168,21 +199,46 @@ export default function Page() {
             </Stack>
           </Stack>
 
-          {itemsToDisplay.length > 0 ? (
-            <ClientsTable
-              count={itemsToDisplay.length}
-              page={page}
-              rows={paginatedItems}
-              rowsPerPage={rowsPerPage}
-              onPageChange={handlePageChange}
-              onRowsPerPageChange={handleRowsPerPageChange}
-            />
-          ) : (
-            <Stack sx={{ alignItems: "center", padding: 4 }}>
-              <Typography variant="label">
-                🙁 Oops! No matches found. Please double-check your input.
-              </Typography>
-            </Stack>
+          {tab === 0 && (
+            <>
+              {itemsToDisplay.length > 0 ? (
+                <InTreatmentTable
+                  count={itemsToDisplay.length}
+                  page={page}
+                  rows={paginatedItems}
+                  rowsPerPage={rowsPerPage}
+                  onPageChange={handlePageChange}
+                  onRowsPerPageChange={handleRowsPerPageChange}
+                />
+              ) : (
+                <Stack sx={{ alignItems: "center", padding: 4 }}>
+                  <Typography variant="label">
+                    🙁 Oops! No matches found. Please double-check your input.
+                  </Typography>
+                </Stack>
+              )}
+            </>
+          )}
+
+          {tab === 1 && (
+            <>
+              {itemsToDisplay.length > 0 ? (
+                <DeactivatedTable
+                  count={itemsToDisplay.length}
+                  page={page}
+                  rows={paginatedItems}
+                  rowsPerPage={rowsPerPage}
+                  onPageChange={handlePageChange}
+                  onRowsPerPageChange={handleRowsPerPageChange}
+                />
+              ) : (
+                <Stack sx={{ alignItems: "center", padding: 4 }}>
+                  <Typography variant="label">
+                    🙁 Oops! No matches found. Please double-check your input.
+                  </Typography>
+                </Stack>
+              )}
+            </>
           )}
         </Stack>
       </Stack>

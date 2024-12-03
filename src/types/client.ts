@@ -6,4 +6,5 @@ export interface Client {
   treatmentPlan: string;
   lastSession: string;
   unsavedNotes: string;
+  status: boolean;
 }

@@ -30,7 +30,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-interface ItemsTableProps {
+interface DeactivatedTableProps {
   count?: number;
   page?: number;
   rows?: Client[];
@@ -42,14 +42,14 @@ interface ItemsTableProps {
   onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ClientsTable = ({
+const DeactivatedTable = ({
   count = 0,
   rows = [],
   page = 0,
   rowsPerPage = 0,
   onPageChange,
   onRowsPerPageChange,
-}: ItemsTableProps): React.JSX.Element => {
+}: DeactivatedTableProps): React.JSX.Element => {
   const rowIds = React.useMemo(() => {
     return rows.map((item) => item.id);
   }, [rows]);
@@ -63,7 +63,6 @@ const ClientsTable = ({
               <StyledTableCell>Client Name</StyledTableCell>
               <StyledTableCell>Clinician Name</StyledTableCell>
               <StyledTableCell>Client Type</StyledTableCell>
-              <StyledTableCell>Treatment Plan</StyledTableCell>
               <StyledTableCell>Last Session</StyledTableCell>
               <StyledTableCell>Unsaved Notes</StyledTableCell>
             </TableRow>
@@ -75,6 +74,8 @@ const ClientsTable = ({
                   label: "Unknown",
                   color: "primary",
                 };
+
+              console.log("clientTypeColor", clientTypeColor);
 
               return (
                 <TableRow hover key={row.id}>
@@ -93,12 +94,9 @@ const ClientsTable = ({
                   <StyledTableCell>
                     <Chip
                       label={clientTypeLabel}
-                      color={clientTypeColor as any}
                       size="small"
+                      className={`bg-chip-${clientTypeColor} text-black`}
                     />
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    <Typography variant="label">{row.treatmentPlan}</Typography>
                   </StyledTableCell>
                   <StyledTableCell>
                     <Typography variant="label">
@@ -128,4 +126,4 @@ const ClientsTable = ({
   );
 };
 
-export default ClientsTable;
+export default DeactivatedTable;

@@ -3,6 +3,7 @@ import { Tabs as MUITabs, Tab as MUITab, styled, Theme } from "@mui/material";
 
 interface TabsProps {
   value: number;
+  items: { label: string; size: number }[];
   onChange: (
     event: React.MouseEvent<HTMLButtonElement>,
     newValue: number,
@@ -27,6 +28,7 @@ const TabsStyled = styled(MUITabs)(
 const TabStyled = styled(MUITab)(
   ({ theme, selected }: { theme: Theme; selected?: boolean }) => ({
     fontSize: 14,
+    fontWeight: 500,
     textTransform: "none",
     minHeight: 32,
     padding: "0 20px",
@@ -46,11 +48,16 @@ const TabStyled = styled(MUITab)(
   }),
 );
 
-const Tabs = ({ value, onChange, ...rest }: TabProps) => {
+const Tabs = ({ value, items, onChange, ...rest }: TabProps) => {
   return (
     <TabsStyled value={value} onChange={onChange} {...rest}>
-      <TabStyled id="treatment" label="In treatment" />
-      <TabStyled id="deactivated" label="Deactivated" />
+      {items.map((item, index) => (
+        <TabStyled
+          key={index}
+          label={`${item.label} (${item.size})`}
+          value={index}
+        />
+      ))}
     </TabsStyled>
   );
 };
