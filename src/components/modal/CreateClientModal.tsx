@@ -194,7 +194,7 @@ export default function CreateClientModal({
               render={({ field }) => (
                 <FormControl error={Boolean(errors.highRiskClient)}>
                   <Stack flexDirection="row" justifyContent="space-between">
-                    <Typography>High risk client</Typography>
+                    <Typography variant="label">High risk client</Typography>
                     <Switch {...field} />
                     {errors.highRiskClient ? (
                       <FormHelperText>
@@ -225,8 +225,12 @@ export default function CreateClientModal({
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Close</Button>
-          <Button variant="contained" type="submit" autoFocus>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ fontSize: 16 }}
+            autoFocus
+          >
             Add client
           </Button>
         </DialogActions>
