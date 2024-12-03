@@ -1,17 +1,6 @@
 import React from "react";
 import { Tabs as MUITabs, Tab as MUITab, styled, Theme } from "@mui/material";
 
-interface TabsProps {
-  value: number;
-  items: { label: string; size: number }[];
-  onChange: (
-    event: React.MouseEvent<HTMLButtonElement>,
-    newValue: number,
-  ) => void;
-}
-
-type TabProps = TabsProps & React.ComponentProps<typeof MUITabs>;
-
 const TabsStyled = styled(MUITabs)(
   ({ theme, selected }: { theme: Theme; selected?: boolean }) => ({
     backgroundColor: theme.palette.background.default,
@@ -47,6 +36,17 @@ const TabStyled = styled(MUITab)(
     },
   }),
 );
+
+interface TabsProps {
+  value: number;
+  items: { label: string; size: number }[];
+  onChange: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    newValue: number,
+  ) => void;
+}
+
+type TabProps = TabsProps & React.ComponentProps<typeof MUITabs>;
 
 const Tabs = ({ value, items, onChange, ...rest }: TabProps) => {
   return (
