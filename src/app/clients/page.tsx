@@ -82,6 +82,7 @@ export default function Page() {
     // console.log("filteredItems", filteredItems);
 
     setFilterItems(filteredItems);
+    setPage(0);
   }, [clients, searchClientName, searchClinicianName]);
 
   const handleChangeTab = (
