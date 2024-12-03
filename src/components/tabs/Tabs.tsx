@@ -38,9 +38,9 @@ const TabStyled = styled(MUITab)(
 );
 
 interface TabsProps {
-  value: number;
-  items: { label: string; size: number }[];
-  onChange: (
+  value?: number;
+  items?: { label: string; size: number }[];
+  onChange?: (
     event: React.MouseEvent<HTMLButtonElement>,
     newValue: number,
   ) => void;
@@ -48,7 +48,7 @@ interface TabsProps {
 
 type TabProps = TabsProps & React.ComponentProps<typeof MUITabs>;
 
-const Tabs = ({ value, items, onChange, ...rest }: TabProps) => {
+const Tabs = ({ value, items = [], onChange, ...rest }: TabProps) => {
   return (
     <TabsStyled value={value} onChange={onChange} {...rest}>
       {items.map((item, index) => (

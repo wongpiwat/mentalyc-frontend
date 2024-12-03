@@ -73,7 +73,7 @@ const Switch = ({ label, value, onChange }: SwitchType) => {
     <FormControlLabel
       control={<IOSSwitch checked={value} onChange={onChange} />}
       label={label}
-      sx={{ margin: 0 }}
+      sx={{ margin: 0, gap: 1 }}
     />
   );
 };

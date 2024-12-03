@@ -9,7 +9,7 @@ import useFetchItems from "@/hooks/useFetchItems";
 import { Client } from "@/types/client";
 
 import Tabs from "@/components/tabs/Tabs";
-import TableFilter from "@/components/table/TableFilter";
+import SearchField from "@/components/search/SearchField";
 import InTreatmentTable from "@/components/table/InTreatmentTable";
 import DeactivatedTable from "@/components/table/DeactivatedTable";
 import CreateClientModal from "@/components/modal/CreateClientModal";
@@ -130,6 +130,20 @@ export default function Page() {
     }
   };
 
+  const handleChangeSearchClientName = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const searchVal = event.target.value;
+    setSearchClientName(searchVal);
+  };
+
+  const handleChangeSearchClinicianName = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const searchVal = event.target.value;
+    setSearchClinicianName(searchVal);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -164,21 +178,21 @@ export default function Page() {
 
           <Stack direction="row" spacing={2}>
             <Stack flex={1} direction="row" spacing={2}>
-              <TableFilter
+              <SearchField
                 label="Client name"
                 placeholder="Search client"
                 value={searchClientName}
-                onChange={(searchVal) => setSearchClientName(searchVal)}
-                onCancelSearch={() => cancelClientNameSearch()}
+                onChange={handleChangeSearchClientName}
+                onCancel={() => cancelClientNameSearch()}
                 fullWidth
               />
 
-              <TableFilter
+              <SearchField
                 label="Clinician name"
                 placeholder="Search clinician"
                 value={searchClinicianName}
-                onChange={(searchVal) => setSearchClinicianName(searchVal)}
-                onCancelSearch={() => cancelClinicianNameSearch()}
+                onChange={handleChangeSearchClinicianName}
+                onCancel={() => cancelClinicianNameSearch()}
                 fullWidth
               />
             </Stack>

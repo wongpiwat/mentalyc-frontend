@@ -5,23 +5,25 @@ import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TextField from "@/components/text-field/TextField";
 
-type TableFilterProps = {
-  label: string;
-  value: string;
+interface SearchFieldProps {
+  label?: string;
+  value?: string;
   placeholder?: string;
-  onChange: (value: string) => void;
-  onCancelSearch: () => void;
+  onCancel?: () => void;
   fullWidth?: boolean;
-};
+}
 
-const TableFilter = ({
+type SearchFieldTypes = SearchFieldProps &
+  React.ComponentProps<typeof TextField>;
+
+const SearchField = ({
   label,
   value,
   placeholder = "",
   onChange,
-  onCancelSearch,
+  onCancel,
   fullWidth = false,
-}: TableFilterProps) => {
+}: SearchFieldTypes) => {
   return (
     <Stack sx={{ flex: fullWidth ? 1 : "none", gap: 1 }}>
       <TextField
@@ -29,7 +31,7 @@ const TableFilter = ({
         value={value}
         fullWidth={fullWidth}
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         startAdornment={
           <InputAdornment position="start">
             <SearchIcon />
@@ -38,10 +40,7 @@ const TableFilter = ({
         endAdornment={
           value && (
             <InputAdornment position="end">
-              <CancelIcon
-                onClick={onCancelSearch}
-                style={{ cursor: "pointer" }}
-              />
+              <CancelIcon onClick={onCancel} style={{ cursor: "pointer" }} />
             </InputAdornment>
           )
         }
@@ -50,4 +49,4 @@ const TableFilter = ({
   );
 };
 
-export default TableFilter;
+export default SearchField;

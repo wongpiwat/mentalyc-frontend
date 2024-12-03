@@ -45,6 +45,9 @@ interface DeactivatedTableProps {
   onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+type DeactivatedTableType = DeactivatedTableProps &
+  React.ComponentProps<typeof Table>;
+
 const DeactivatedTable = ({
   count = 0,
   rows = [],
@@ -52,11 +55,12 @@ const DeactivatedTable = ({
   rowsPerPage = 0,
   onPageChange,
   onRowsPerPageChange,
-}: DeactivatedTableProps): React.JSX.Element => {
+  ...rest
+}: DeactivatedTableType) => {
   return (
     <Card>
       <Box sx={{ overflowX: "auto" }}>
-        <Table sx={{ minWidth: "800px" }} size="small">
+        <Table sx={{ minWidth: "800px" }} size="small" {...rest}>
           <TableHead>
             <TableRow>
               <StyledTableCell>Client Name</StyledTableCell>

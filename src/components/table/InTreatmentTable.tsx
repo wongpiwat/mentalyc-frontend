@@ -45,6 +45,9 @@ interface InTreatmentTableProps {
   onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+type InTreatmentTableType = InTreatmentTableProps &
+  React.ComponentProps<typeof Table>;
+
 const InTreatmentTable = ({
   count = 0,
   rows = [],
@@ -52,11 +55,12 @@ const InTreatmentTable = ({
   rowsPerPage = 0,
   onPageChange,
   onRowsPerPageChange,
-}: InTreatmentTableProps): React.JSX.Element => {
+  ...rest
+}: InTreatmentTableType) => {
   return (
     <Card>
       <Box sx={{ overflowX: "auto" }}>
-        <Table sx={{ minWidth: "800px" }} size="small">
+        <Table sx={{ minWidth: "800px" }} size="small" {...rest}>
           <TableHead>
             <TableRow>
               <StyledTableCell>Client Name</StyledTableCell>

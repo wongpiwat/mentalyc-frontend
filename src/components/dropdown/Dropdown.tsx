@@ -3,12 +3,12 @@ import React from "react";
 import { Chip, MenuItem, Select, Stack, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-interface FiltersProps {
+interface DropdownProps {
   label?: string;
   options?: { label: string; tag: string; value: any }[];
 }
 
-type DropdownProps = FiltersProps & React.ComponentProps<typeof Select>;
+type DropdownType = DropdownProps & React.ComponentProps<typeof Select>;
 
 const Dropdown = ({
   label,
@@ -17,7 +17,7 @@ const Dropdown = ({
   onChange,
   fullWidth,
   ...props
-}: DropdownProps): React.JSX.Element => {
+}: DropdownType): React.JSX.Element => {
   return (
     <Stack sx={{ flex: fullWidth ? 1 : "none", gap: 1 }}>
       {label && <Typography variant="small">{label}</Typography>}
