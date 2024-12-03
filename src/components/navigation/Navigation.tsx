@@ -17,6 +17,7 @@ import {
 import NoteIcon from "@mui/icons-material/Note";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import GradientButton from "@/components/button/GradientButton";
 import TextGradientButton from "@/components/button/TextGradientButton";
@@ -26,6 +27,7 @@ import { NAV_MENU, NAV_SETTINGS } from "@/constants/navigation";
 const Navigation = () => {
   const [selectedTab, setSelectedTab] = useState(1);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElNavMenu, setAnchorElNavMenu] = useState(null);
 
   const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
@@ -35,6 +37,14 @@ const Navigation = () => {
     setAnchorElUser(null);
   };
 
+  const handleOpenNavMenu = (event: any) => {
+    setAnchorElNavMenu(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNavMenu(null);
+  };
+
   return (
     <AppBar position="static" sx={{ background: "#FFF" }} elevation={0}>
       <Container maxWidth="lg">
@@ -42,7 +52,7 @@ const Navigation = () => {
           <Stack
             flexDirection="row"
             flexGrow={0}
-            display={{ xs: "none", md: "flex" }}
+            display={{ xs: "none", md: "block" }}
           >
             <Stack flexDirection="row" gap={2} alignItems="center">
               <IconButton sx={{ p: 0 }}>
@@ -56,7 +66,43 @@ const Navigation = () => {
             </Stack>
           </Stack>
 
-          <Stack flexDirection="row" justifyContent="center" flexGrow={1}>
+          <Box sx={{ flexGrow: 1, display: { xs: "block", sm: "none" } }}>
+            <IconButton
+              size="large"
+              onClick={handleOpenNavMenu}
+              color="primary"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorElNavMenu}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNavMenu)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: "block", md: "none" } }}
+            >
+              {NAV_MENU.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+
+          <Stack
+            flexDirection="row"
+            justifyContent="center"
+            flexGrow={1}
+            display={{ xs: "none", sm: "block" }}
+          >
             <NavContainer>
               {NAV_MENU.map((tab, index) => (
                 <NavItem
@@ -69,7 +115,7 @@ const Navigation = () => {
               ))}
               <Stack
                 justifyContent="center"
-                display={{ xs: "none", lg: "flex" }}
+                display={{ xs: "none", lg: "none", xl: "block" }}
               >
                 <TextGradientButton>Earn $80</TextGradientButton>
               </Stack>
@@ -81,7 +127,7 @@ const Navigation = () => {
               <Stack
                 flexDirection="row"
                 alignItems="center"
-                display={{ xs: "none", lg: "flex" }}
+                display={{ xs: "none", xl: "flex" }}
                 gap={1}
               >
                 <NoteIcon className="text-secondary" width={16} height={16} />
@@ -95,7 +141,7 @@ const Navigation = () => {
                 />
               </Stack>
 
-              <Box display={{ xs: "none", md: "flex" }}>
+              <Box display={{ xs: "none", lg: "block" }}>
                 <GradientButton>Become SUPER</GradientButton>
               </Box>
 
