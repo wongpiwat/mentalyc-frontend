@@ -3,7 +3,6 @@ import Image from "next/image";
 import {
   AppBar,
   Box,
-  Chip,
   Toolbar,
   IconButton,
   Typography,
@@ -19,10 +18,12 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import GradientButton from "@/components/button/GradientButton";
-import TextGradientButton from "@/components/button/TextGradientButton";
 import { NavContainer, NavItem } from "@/components/navigation/NavMenu";
 import { NAV_MENU, NAV_SETTINGS } from "@/constants/navigation";
+
+import GradientButton from "@/components/button/GradientButton";
+import TextGradientButton from "@/components/button/TextGradientButton";
+import Chip from "@/components/chip/Chip";
 
 const Navigation = () => {
   const [selectedTab, setSelectedTab] = useState(1);

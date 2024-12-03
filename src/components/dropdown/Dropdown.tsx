@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Chip, MenuItem, Select, Stack, Typography } from "@mui/material";
+import { MenuItem, Select, Stack, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Chip from "@/components/chip/Chip";
 
 interface DropdownProps {
   label?: string;

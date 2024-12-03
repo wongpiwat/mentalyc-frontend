@@ -3,7 +3,6 @@ import React from "react";
 import {
   Box,
   Card,
-  Chip,
   Divider,
   Stack,
   Table,
@@ -16,6 +15,8 @@ import {
   tableCellClasses,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+
+import Chip from "@/components/chip/Chip";
 
 import { Client } from "@/types/client";
 import { CLIENT_TYPE } from "@/constants/client";
@@ -97,7 +98,7 @@ const InTreatmentTable = ({
                     <Chip
                       label={clientTypeLabel}
                       size="small"
-                      className={`bg-chip-${clientTypeColor} text-black`}
+                      color={clientTypeColor as any}
                     />
                   </StyledTableCell>
                   <StyledTableCell>

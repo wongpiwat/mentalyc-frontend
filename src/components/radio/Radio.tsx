@@ -8,6 +8,7 @@ import {
   styled,
   Theme,
 } from "@mui/material";
+import { PaletteKey } from "@/types/theme";
 
 const RadioGroupStyled = styled(RadioGroup)<{ fullWidth?: boolean }>(
   ({ theme, fullWidth }: { theme: Theme; fullWidth?: boolean }) => ({
@@ -18,14 +19,28 @@ const RadioGroupStyled = styled(RadioGroup)<{ fullWidth?: boolean }>(
 
 const FormControlLabelStyled = styled(FormControlLabel)<{
   fullWidth?: boolean;
-}>(({ theme, fullWidth }: { theme: Theme; fullWidth?: boolean }) => ({
-  width: fullWidth ? "100%" : undefined,
-  "& .MuiFormControlLabel-label": {
-    padding: "4px 6px",
-    borderRadius: 8,
-    fontSize: 14,
-  },
-}));
+  color?: string;
+}>(
+  ({
+    theme,
+    fullWidth,
+    color,
+  }: {
+    theme: Theme;
+    fullWidth?: boolean;
+    color?: string;
+  }) => ({
+    width: fullWidth ? "100%" : undefined,
+    "& .MuiFormControlLabel-label": {
+      padding: "4px 6px",
+      borderRadius: 8,
+      fontSize: 14,
+      backgroundColor: color
+        ? theme.palette[color as PaletteKey].main
+        : undefined,
+    },
+  }),
+);
 
 interface RadioProps {
   label: string;
@@ -71,7 +86,7 @@ const Radio = ({
             control={<MUIRadio />}
             label={option.label}
             fullWidth={fullWidth}
-            classes={{ label: `bg-chip-${option.color}` }}
+            color={option.color}
           />
         ))}
       </RadioGroupStyled>
