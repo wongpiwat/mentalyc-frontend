@@ -34,7 +34,7 @@ export default function Page() {
 
   const [filterItems, setFilterItems] = useState<Client[]>([]);
 
-  const { items, loading, refresh } = useFetchItems();
+  const { items, loading } = useFetchItems();
 
   // Split items into active and deactivated clients
   const [activeClient, deactivatedClient] = useMemo(() => {
@@ -102,7 +102,7 @@ export default function Page() {
   };
 
   const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
     setPage(newPage);
