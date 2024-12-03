@@ -55,6 +55,12 @@ export default function CreateClientModal({
     { label: "Couple", value: "COUPLE" },
   ];
 
+  const pronounsOptions = [
+    { label: "He/Him", value: "HE_HIM" },
+    { label: "She/Her", value: "SHE_HER" },
+    { label: "They/Them", value: "THEY_THEM" },
+  ];
+
   const handleCreateItem = (values: Values) => {
     console.log("Create item", values);
     onSubmit(values);
@@ -122,6 +128,24 @@ export default function CreateClientModal({
                   />
                   {errors.clientName ? (
                     <FormHelperText>{errors.clientName.message}</FormHelperText>
+                  ) : null}
+                </FormControl>
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="pronouns"
+              render={({ field }) => (
+                <FormControl error={Boolean(errors.pronouns)}>
+                  <Radio
+                    {...field}
+                    label="Pronouns"
+                    row
+                    options={pronounsOptions}
+                  />
+                  {errors.pronouns ? (
+                    <FormHelperText>{errors.pronouns.message}</FormHelperText>
                   ) : null}
                 </FormControl>
               )}
