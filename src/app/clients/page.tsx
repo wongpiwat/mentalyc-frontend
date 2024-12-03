@@ -8,11 +8,11 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import useFetchItems from "@/hooks/useFetchItems";
 import { Client } from "@/types/client";
 
-import CreateClientModal from "@/components/modal/CreateClientModal";
-import InTreatmentTable from "@/components/table/InTreatmentTable";
 import Tabs from "@/components/tabs/Tabs";
 import TableFilter from "@/components/table/TableFilter";
+import InTreatmentTable from "@/components/table/InTreatmentTable";
 import DeactivatedTable from "@/components/table/DeactivatedTable";
+import CreateClientModal from "@/components/modal/CreateClientModal";
 
 const applyPagination = (
   rows: Client[],

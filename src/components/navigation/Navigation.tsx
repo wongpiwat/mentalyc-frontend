@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   AppBar,
   Box,
@@ -13,17 +14,14 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
-
-import Image from "next/image";
 import NoteIcon from "@mui/icons-material/Note";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import GradientButton from "@/components/button/GradientButton";
 import TextGradientButton from "@/components/button/TextGradientButton";
 import { NavContainer, NavItem } from "@/components/navigation/NavMenu";
-
-const pages = ["New notes", "Clients", "Clinicians", "Templates"];
-const settings = ["Profile", "Settings", "Logout"];
+import { NAV_MENU, NAV_SETTINGS } from "@/constants/navigation";
 
 const Navigation = () => {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -56,7 +54,7 @@ const Navigation = () => {
 
           <Stack flexDirection="row" justifyContent="center" flexGrow={1}>
             <NavContainer>
-              {pages.map((tab, index) => (
+              {NAV_MENU.map((tab, index) => (
                 <NavItem
                   key={index}
                   selected={selectedTab === index}
@@ -107,7 +105,7 @@ const Navigation = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {NAV_SETTINGS.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography sx={{ textAlign: "center" }}>
                     {setting}

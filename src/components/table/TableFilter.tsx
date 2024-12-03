@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InputAdornment, Stack, Typography } from "@mui/material";
+import { InputAdornment, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TextField from "@/components/text-field/TextField";

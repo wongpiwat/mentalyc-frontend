@@ -1,22 +1,25 @@
 import React from "react";
 
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Card,
+  Chip,
+  Divider,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography,
+  tableCellClasses,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 import { Client } from "@/types/client";
-import Chip from "@mui/material/Chip";
 import { CLIENT_TYPE } from "@/constants/client";
 import { formatDate } from "@/utils/format";
-import { styled, tableCellClasses } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +33,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-interface ItemsTableProps {
+interface InTreatmentTableProps {
   count?: number;
   page?: number;
   rows?: Client[];
@@ -49,11 +52,7 @@ const InTreatmentTable = ({
   rowsPerPage = 0,
   onPageChange,
   onRowsPerPageChange,
-}: ItemsTableProps): React.JSX.Element => {
-  const rowIds = React.useMemo(() => {
-    return rows.map((item) => item.id);
-  }, [rows]);
-
+}: InTreatmentTableProps): React.JSX.Element => {
   return (
     <Card>
       <Box sx={{ overflowX: "auto" }}>
@@ -75,8 +74,6 @@ const InTreatmentTable = ({
                   label: "Unknown",
                   color: "primary",
                 };
-
-              console.log("clientTypeColor", clientTypeColor);
 
               return (
                 <TableRow hover key={row.id}>
