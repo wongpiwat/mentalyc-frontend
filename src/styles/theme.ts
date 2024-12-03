@@ -1,20 +1,5 @@
 import { createTheme, ThemeOptions } from "@mui/material";
-import { TypographyOptions } from "@mui/material/styles/createTypography";
-import React from "react";
-
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    body: true;
-    label: true;
-    small: true;
-  }
-}
-
-interface ExtendedTypographyOptions extends TypographyOptions {
-  body: React.CSSProperties;
-  label: React.CSSProperties;
-  small: React.CSSProperties;
-}
+import { ExtendedTypographyOptions } from "@/types/theme";
 
 const config: ThemeOptions = {
   components: {
@@ -49,8 +34,39 @@ const config: ThemeOptions = {
     } as ExtendedTypographyOptions["small"],
   } as ThemeOptions["typography"],
   palette: {
+    text: {
+      primary: "#040404",
+      secondary: "#707070",
+    },
     primary: {
       main: "#731054",
+    },
+    info: {
+      main: "#E2F3FC",
+    },
+    success: {
+      main: "#D5F6DE",
+    },
+    warning: {
+      main: "#FDF4C8",
+    },
+    valhalla: {
+      main: "#EFEAFD",
+      light: "#FFFFFF",
+      dark: "#040404",
+      contrastText: "#040404",
+    },
+    kenyanCopper: {
+      main: "#FFEAD5",
+      light: "#FFFFFF",
+      dark: "#040404",
+      contrastText: "#040404",
+    },
+    gray: {
+      main: "#EBEBEB",
+      light: "#FFFFFF",
+      dark: "#040404",
+      contrastText: "#040404",
     },
   },
 };
