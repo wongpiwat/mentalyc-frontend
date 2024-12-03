@@ -74,7 +74,7 @@ const Navigation = () => {
               <Stack flexDirection="row" alignItems="center" gap={1}>
                 <NoteIcon className="text-secondary" width={16} height={16} />
                 <Typography variant="body" className="text-secondary">
-                  12 notes left{" "}
+                  12 notes left
                 </Typography>
                 <HelpOutlineIcon
                   className="text-secondary"
