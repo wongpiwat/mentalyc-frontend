@@ -2,16 +2,21 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import Stack from "@mui/material/Stack";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { clientSchema, defaultValues, Values } from "@/schemas/client.schema";
-import { Typography } from "@mui/material";
+
 import TextField from "@/components/text-field/TextField";
 import Dropdown from "@/components/dropdown/Dropdown";
 import Radio from "@/components/radio/Radio";
@@ -68,11 +73,24 @@ export default function CreateClientModal({
       <form onSubmit={handleSubmit(handleCreateItem)}>
         <DialogContent>
           <Stack spacing={2}>
-            <Typography>Add new client</Typography>
-            <Typography>
-              This client information is essential for generating detailed
-              clients documents
-            </Typography>
+            <Stack spacing={2} alignItems="center">
+              <IconButton
+                onClick={onClose}
+                className="text-primary"
+                sx={(theme) => ({
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                })}
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="h4">Add new client</Typography>
+              <Typography variant="label" color="textSecondary">
+                This client information is essential for generating detailed
+                clients documents
+              </Typography>
+            </Stack>
 
             <Controller
               control={control}
