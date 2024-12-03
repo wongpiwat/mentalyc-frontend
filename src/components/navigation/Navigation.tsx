@@ -72,16 +72,22 @@ const Navigation = () => {
           <Box flexGrow={0}>
             <Stack flexDirection="row" alignItems="center" gap={2}>
               <Stack flexDirection="row" alignItems="center" gap={1}>
-                <NoteIcon color="primary" />
-                <Typography color="textSecondary">12 notes left </Typography>
-                <HelpOutlineIcon color="primary" />
+                <NoteIcon className="text-secondary" width={16} height={16} />
+                <Typography variant="body" className="text-secondary">
+                  12 notes left{" "}
+                </Typography>
+                <HelpOutlineIcon
+                  className="text-secondary"
+                  width={16}
+                  height={16}
+                />
               </Stack>
 
               <GradientButton>Become SUPER</GradientButton>
 
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="M" src="/static/images/avatar/M.jpg" />
                   <ExpandMoreIcon
                     color="primary"
                     sx={{ transform: anchorElUser ? "rotate(180deg)" : 0 }}
