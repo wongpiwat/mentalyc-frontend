@@ -13,18 +13,22 @@ const config: ThemeOptions = {
   },
   typography: {
     h4: {
+      fontFamily: "Inter, sans-serif",
       fontSize: 20,
       fontWeight: 700,
     } as ExtendedTypographyOptions["h4"],
     body: {
+      fontFamily: "Inter, sans-serif",
       fontSize: 16,
       fontWeight: 400,
     } as ExtendedTypographyOptions["body"],
     label: {
+      fontFamily: "Inter, sans-serif",
       fontSize: 14,
       fontWeight: 400,
     } as ExtendedTypographyOptions["label"],
     small: {
+      fontFamily: "Inter, sans-serif",
       fontSize: 12,
       fontWeight: 400,
     } as ExtendedTypographyOptions["small"],
