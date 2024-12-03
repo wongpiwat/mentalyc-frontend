@@ -23,6 +23,7 @@ const FormControlLabelStyled = styled(FormControlLabel)<{
   "& .MuiFormControlLabel-label": {
     padding: "4px 6px",
     borderRadius: 8,
+    fontSize: 14,
   },
 }));
 
