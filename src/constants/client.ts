@@ -12,8 +12,6 @@ export const CLIENT_TYPE: { [key: string]: ClientType } = {
   GROUP: { label: "Group", value: 5, color: "warning" },
 };
 
-
-
 export const DIAGNOSIS_OPTIONS = [
   { label: "Adjustment disorder with anxiety", tag: "F43.22", value: 1 },
   { label: "Anxiety", tag: "F42.54", value: 2 },
@@ -21,8 +19,8 @@ export const DIAGNOSIS_OPTIONS = [
 ];
 
 export const CLIENT_TYPE_OPTIONS = [
-  { label: "Individual", value: "INDIVIDUAL" },
-  { label: "Couple", value: "COUPLE" },
+  { label: "Individual", value: "INDIVIDUAL", color: "valhalla" },
+  { label: "Couple", value: "COUPLE", color: "info" },
 ];
 
 export const PRONOUNS_OPTIONS = [

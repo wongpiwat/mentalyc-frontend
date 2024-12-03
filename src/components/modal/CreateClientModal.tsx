@@ -136,9 +136,10 @@ export default function CreateClientModal({
                       <Radio
                         {...field}
                         label="Pronouns"
-                        row
                         options={PRONOUNS_OPTIONS}
+                        fullWidth
                         required
+                        row
                       />
                       {errors.pronouns ? (
                         <FormHelperText>
@@ -257,7 +258,7 @@ export default function CreateClientModal({
                   <TextField
                     {...field}
                     label="Extra notes"
-                    placeholder="Extra notes..."
+                    placeholder="Extra information about your client"
                   />
                   {errors.extraNotes ? (
                     <FormHelperText>{errors.extraNotes.message}</FormHelperText>
@@ -267,7 +268,7 @@ export default function CreateClientModal({
             />
           </Stack>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ p: 3, pt: 0 }}>
           <Button
             variant="contained"
             type="submit"

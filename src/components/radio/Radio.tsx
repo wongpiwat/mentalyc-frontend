@@ -5,12 +5,32 @@ import {
   Radio as MUIRadio,
   Typography,
   Stack,
+  styled,
+  Theme,
 } from "@mui/material";
+
+const RadioGroupStyled = styled(RadioGroup)<{ fullWidth?: boolean }>(
+  ({ theme, fullWidth }: { theme: Theme; fullWidth?: boolean }) => ({
+    width: fullWidth ? "auto" : undefined,
+    flexWrap: fullWidth ? "nowrap" : undefined,
+  }),
+);
+
+const FormControlLabelStyled = styled(FormControlLabel)<{
+  fullWidth?: boolean;
+}>(({ theme, fullWidth }: { theme: Theme; fullWidth?: boolean }) => ({
+  width: fullWidth ? "100%" : undefined,
+  "& .MuiFormControlLabel-label": {
+    padding: "4px 6px",
+    borderRadius: 8,
+  },
+}));
 
 interface RadioProps {
   label: string;
   row?: boolean;
-  options?: { label: string; value: string }[];
+  fullWidth?: boolean;
+  options?: { label: string; value: string; color?: string }[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 }
 
@@ -22,6 +42,7 @@ const Radio = ({
   required,
   onChange,
   options = [],
+  fullWidth,
   row,
 }: RadioType) => {
   return (
@@ -36,16 +57,23 @@ const Radio = ({
           )}
         </Typography>
       )}
-      <RadioGroup row={row} value={value} onChange={onChange}>
+      <RadioGroupStyled
+        row={row}
+        value={value}
+        onChange={onChange}
+        fullWidth={fullWidth}
+      >
         {options.map((option) => (
-          <FormControlLabel
+          <FormControlLabelStyled
             key={option.value}
             value={option.value}
             control={<MUIRadio />}
             label={option.label}
+            fullWidth={fullWidth}
+            classes={{ label: `bg-chip-${option.color}` }}
           />
         ))}
-      </RadioGroup>
+      </RadioGroupStyled>
     </Stack>
   );
 };
