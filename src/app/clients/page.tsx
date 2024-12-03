@@ -57,12 +57,12 @@ export default function Page() {
   const itemsToDisplay = isSearchActive ? filterItems : clients;
   const paginatedItems = applyPagination(itemsToDisplay, page, rowsPerPage);
 
-  console.log("clients", clients);
+  // console.log("clients", clients);
 
   // Filter items by client name and clinician name
   useEffect(() => {
-    console.log("searchClientName", searchClientName);
-    console.log("searchClinicianName", searchClinicianName);
+    // console.log("searchClientName", searchClientName);
+    // console.log("searchClinicianName", searchClinicianName);
     if (!searchClientName && !searchClinicianName) {
       return;
     }
@@ -79,7 +79,7 @@ export default function Page() {
       );
     });
 
-    console.log("filteredItems", filteredItems);
+    // console.log("filteredItems", filteredItems);
 
     setFilterItems(filteredItems);
   }, [clients, searchClientName, searchClinicianName]);

@@ -74,8 +74,6 @@ const DeactivatedTable = ({
                   color: "primary",
                 };
 
-              console.log("clientTypeColor", clientTypeColor);
-
               return (
                 <TableRow hover key={row.id}>
                   <StyledTableCell>

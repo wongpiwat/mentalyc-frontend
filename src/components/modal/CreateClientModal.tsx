@@ -42,17 +42,23 @@ export default function CreateClientModal({
     watch,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Values>({ defaultValues, resolver: zodResolver(clientSchema) });
 
-  const watchAllFields = watch();
-  console.log("watch", watchAllFields);
+  // const watchAllFields = watch();
+  // console.log("watch", watchAllFields);
 
   const clientType = watch("clientType");
 
   const handleCreateItem = (values: Values) => {
     console.log("Create item", values);
     onSubmit(values);
+
+    // clear form after submit
+    reset();
+
+    // close modal
     onClose();
   };
 
