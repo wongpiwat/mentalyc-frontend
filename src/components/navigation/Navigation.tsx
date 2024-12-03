@@ -39,7 +39,11 @@ const Navigation = () => {
     <AppBar position="static" sx={{ background: "#FFF" }} elevation={0}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <Stack flexDirection="row" flexGrow={0}>
+          <Stack
+            flexDirection="row"
+            flexGrow={0}
+            display={{ xs: "none", md: "flex" }}
+          >
             <Stack flexDirection="row" gap={2} alignItems="center">
               <IconButton sx={{ p: 0 }}>
                 <Image alt="logo" width={42} height={24} src="Logo.svg" />
@@ -63,7 +67,10 @@ const Navigation = () => {
                   {tab}
                 </NavItem>
               ))}
-              <Stack justifyContent="center">
+              <Stack
+                justifyContent="center"
+                display={{ xs: "none", lg: "flex" }}
+              >
                 <TextGradientButton>Earn $80</TextGradientButton>
               </Stack>
             </NavContainer>
@@ -71,7 +78,12 @@ const Navigation = () => {
 
           <Box flexGrow={0}>
             <Stack flexDirection="row" alignItems="center" gap={2}>
-              <Stack flexDirection="row" alignItems="center" gap={1}>
+              <Stack
+                flexDirection="row"
+                alignItems="center"
+                display={{ xs: "none", lg: "flex" }}
+                gap={1}
+              >
                 <NoteIcon className="text-secondary" width={16} height={16} />
                 <Typography variant="body" className="text-secondary">
                   12 notes left
@@ -83,7 +95,9 @@ const Navigation = () => {
                 />
               </Stack>
 
-              <GradientButton>Become SUPER</GradientButton>
+              <Box display={{ xs: "none", md: "flex" }}>
+                <GradientButton>Become SUPER</GradientButton>
+              </Box>
 
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
