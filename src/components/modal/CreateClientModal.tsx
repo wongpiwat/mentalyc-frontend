@@ -16,6 +16,11 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 import { clientSchema, defaultValues, Values } from "@/schemas/client.schema";
+import {
+  CLIENT_TYPE_OPTIONS,
+  DIAGNOSIS_OPTIONS,
+  PRONOUNS_OPTIONS,
+} from "@/constants/client";
 
 import TextField from "@/components/text-field/TextField";
 import Dropdown from "@/components/dropdown/Dropdown";
@@ -37,29 +42,13 @@ export default function CreateClientModal({
     watch,
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<Values>({ defaultValues, resolver: zodResolver(clientSchema) });
 
   const watchAllFields = watch();
   console.log("watch", watchAllFields);
 
-  const diagnosisOptions = [
-    { label: "Adjustment disorder with anxiety", tag: "F43.22", value: 1 },
-    { label: "Anxiety", tag: "F42.54", value: 2 },
-    { label: "Disorder", tag: "F21.276", value: 3 },
-  ];
-
-  const clientTypeOptions = [
-    { label: "Individual", value: "INDIVIDUAL" },
-    { label: "Couple", value: "COUPLE" },
-  ];
-
-  const pronounsOptions = [
-    { label: "He/Him", value: "HE_HIM" },
-    { label: "She/Her", value: "SHE_HER" },
-    { label: "They/Them", value: "THEY_THEM" },
-  ];
+  const clientType = watch("clientType");
 
   const handleCreateItem = (values: Values) => {
     console.log("Create item", values);
@@ -107,7 +96,8 @@ export default function CreateClientModal({
                     {...field}
                     label="Client type"
                     row
-                    options={clientTypeOptions}
+                    options={CLIENT_TYPE_OPTIONS}
+                    required
                   />
                   {errors.clientType ? (
                     <FormHelperText>{errors.clientType.message}</FormHelperText>
@@ -116,60 +106,113 @@ export default function CreateClientModal({
               )}
             />
 
-            <Controller
-              control={control}
-              name="clientName"
-              render={({ field }) => (
-                <FormControl error={Boolean(errors.clientName)}>
-                  <TextField
-                    {...field}
-                    label="Name"
-                    placeholder="Client name..."
-                  />
-                  {errors.clientName ? (
-                    <FormHelperText>{errors.clientName.message}</FormHelperText>
-                  ) : null}
-                </FormControl>
-              )}
-            />
+            {clientType === "INDIVIDUAL" && (
+              <>
+                <Controller
+                  control={control}
+                  name="clientName"
+                  render={({ field }) => (
+                    <FormControl error={Boolean(errors.clientName)}>
+                      <TextField
+                        {...field}
+                        label="Name"
+                        placeholder="Client name..."
+                        required
+                      />
+                      {errors.clientName ? (
+                        <FormHelperText>
+                          {errors.clientName.message}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  )}
+                />
 
-            <Controller
-              control={control}
-              name="pronouns"
-              render={({ field }) => (
-                <FormControl error={Boolean(errors.pronouns)}>
-                  <Radio
-                    {...field}
-                    label="Pronouns"
-                    row
-                    options={pronounsOptions}
-                  />
-                  {errors.pronouns ? (
-                    <FormHelperText>{errors.pronouns.message}</FormHelperText>
-                  ) : null}
-                </FormControl>
-              )}
-            />
+                <Controller
+                  control={control}
+                  name="pronouns"
+                  render={({ field }) => (
+                    <FormControl error={Boolean(errors.pronouns)}>
+                      <Radio
+                        {...field}
+                        label="Pronouns"
+                        row
+                        options={PRONOUNS_OPTIONS}
+                        required
+                      />
+                      {errors.pronouns ? (
+                        <FormHelperText>
+                          {errors.pronouns.message}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  )}
+                />
 
-            <Controller
-              control={control}
-              name="yearOfBirth"
-              render={({ field }) => (
-                <FormControl error={Boolean(errors.yearOfBirth)}>
-                  <TextField
-                    {...field}
-                    label="Year of birth"
-                    placeholder="Year of birth..."
-                    type="number"
-                  />
-                  {errors.yearOfBirth ? (
-                    <FormHelperText>
-                      {errors.yearOfBirth.message}
-                    </FormHelperText>
-                  ) : null}
-                </FormControl>
-              )}
-            />
+                <Controller
+                  control={control}
+                  name="yearOfBirth"
+                  render={({ field }) => (
+                    <FormControl error={Boolean(errors.yearOfBirth)}>
+                      <TextField
+                        {...field}
+                        label="Year of birth"
+                        placeholder="Year of birth..."
+                        type="number"
+                      />
+                      {errors.yearOfBirth ? (
+                        <FormHelperText>
+                          {errors.yearOfBirth.message}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  )}
+                />
+              </>
+            )}
+
+            {clientType === "COUPLE" && (
+              <>
+                <Controller
+                  control={control}
+                  name="clientName"
+                  render={({ field }) => (
+                    <FormControl error={Boolean(errors.clientName)}>
+                      <TextField
+                        {...field}
+                        label="Name 1"
+                        placeholder="Client name..."
+                        required
+                      />
+                      {errors.clientName ? (
+                        <FormHelperText>
+                          {errors.clientName.message}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name="clientName2"
+                  render={({ field }) => (
+                    <FormControl error={Boolean(errors.clientName2)}>
+                      <TextField
+                        {...field}
+                        label="Name 2"
+                        placeholder="Client name..."
+                        required
+                      />
+                      {errors.clientName2 ? (
+                        <FormHelperText>
+                          {errors.clientName2.message}
+                        </FormHelperText>
+                      ) : null}
+                    </FormControl>
+                  )}
+                />
+              </>
+            )}
 
             <Controller
               control={control}
@@ -179,7 +222,7 @@ export default function CreateClientModal({
                   <Dropdown
                     {...field}
                     label="Diagnosis"
-                    options={diagnosisOptions}
+                    options={DIAGNOSIS_OPTIONS}
                   />
                   {errors.diagnosis ? (
                     <FormHelperText>{errors.diagnosis.message}</FormHelperText>
